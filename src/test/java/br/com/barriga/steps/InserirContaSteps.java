@@ -1,13 +1,21 @@
 package br.com.barriga.steps;
 
 import cucumber.api.PendingException;
+import cucumber.api.Scenario;
+import cucumber.api.java.After;
 import cucumber.api.java.pt.Então;
 import cucumber.api.java.pt.Dado;
 import cucumber.api.java.pt.Quando;
+import org.apache.commons.io.FileUtils;
 import org.junit.Assert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+
+import java.io.File;
+import java.io.IOException;
 
 public class InserirContaSteps {
     //incializando a variável
@@ -51,7 +59,7 @@ public class InserirContaSteps {
         driver.findElement(By.linkText("Adicionar")).click();
     }
 
-    @Quando("^informo a conta \"([^\"]*)\"$")
+    @Quando("^informo a \"([^\"]*)\"$")
     public void informoAConta(String arg1) {
         driver.findElement(By.id("nome")).sendKeys(arg1);
     }
@@ -61,21 +69,48 @@ public class InserirContaSteps {
         driver.findElement(By.tagName("button")).click();
     }
 
-    @Então("^a conta é inserida com sucesso$")
-    public void aContaÉInseridaComSucesso() {
-        String texto = driver.findElement(By.xpath("//div[contains(text(),'Conta adicionada com sucesso!')]")).getText();
-        Assert.assertEquals("Conta adicionada com sucesso!", texto);
+    /*DEPOIS DA IMPLEMENTAÇÃO DO ESQUEMA NÃO FOI MAIS NECESSÁRIO
+    * */
+//    @Então("^a conta é inserida com sucesso$")
+//    public void aContaÉInseridaComSucesso() {
+//        String texto = driver.findElement(By.xpath("//div[contains(text(),'Conta adicionada com sucesso!')]")).getText();
+//        Assert.assertEquals("Conta adicionada com sucesso!", texto);
+//    }
+//    //SEGUNDO CENÁRIO
+//    @Então("^sou notificado que o nome da conta é obrigatório$")
+//    public void souNotificadoQueONomeDaContaÉObrigatório() {
+//        String texto = driver.findElement(By.xpath("//div[contains(text(),'Informe o nome da conta')]")).getText();
+//        Assert.assertEquals("Informe o nome da conta", texto);
+//    }
+//    //TERCEIRO CENÁRIO
+//    @Então("^sou notificado que já existe uma conta com esse nome$")
+//    public void souNotificadoQueJáExisteUmaContaComEsseNome() {
+//        String texto = driver.findElement(By.xpath("//div[contains(text(),'Já existe uma conta com esse nome!')]")).getText();
+//        Assert.assertEquals("Já existe uma conta com esse nome!", texto);
+//    }
+
+    @Então("^recebo a \"([^\"]*)\"$")
+    public void receboA(String arg1) {
+        // pega o valor da div que comece com alerta alerta-
+        String texto = driver.findElement(By.xpath("//div[starts-with(@class,'alert alert-')]")).getText();
+        Assert.assertEquals(arg1, texto);
     }
-    //SEGUNDO CENÁRIO
-    @Então("^sou notificado que o nome da conta é obrigatório$")
-    public void souNotificadoQueONomeDaContaÉObrigatório() {
-        String texto = driver.findElement(By.xpath("//div[contains(text(),'Informe o nome da conta')]")).getText();
-        Assert.assertEquals("Informe o nome da conta", texto);
+
+    //tirando scrennshot a cada fim de cenário e nomeando com seu nome
+    //order define qual vai ser executado primeiro ou não
+    @After (order = 1)
+    public void screenshot(Scenario cenario){
+        File file = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+        try {
+            FileUtils.copyFile(file, new File("target/screenshot/"+cenario.getName()+"."+cenario.getLines()+".jpg"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
-    //TERCEIRO CENÁRIO
-    @Então("^sou notificado que já existe uma conta com esse nome$")
-    public void souNotificadoQueJáExisteUmaContaComEsseNome() {
-        String texto = driver.findElement(By.xpath("//div[contains(text(),'Já existe uma conta com esse nome!')]")).getText();
-        Assert.assertEquals("Já existe uma conta com esse nome!", texto);
+
+    //executa depois de cada cenário > lembrar de importar o do cucumber
+    @After (order = 0)
+    public void fecharBrowser() {
+        driver.quit();
     }
 }

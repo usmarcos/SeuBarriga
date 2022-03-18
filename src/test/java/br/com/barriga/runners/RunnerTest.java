@@ -3,7 +3,11 @@ package br.com.barriga.runners;
 import cucumber.api.CucumberOptions;
 import cucumber.api.SnippetType;
 import cucumber.api.junit.Cucumber;
+import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
@@ -19,5 +23,14 @@ import org.junit.runner.RunWith;
         dryRun = false // True - ele apenas valida o mapeamento e não executa os testes
 )
 public class RunnerTest {
-
+    @BeforeClass
+    public static void reset(){
+        WebDriver driver =  new ChromeDriver();
+        driver.get("https://seubarriga.wcaquino.me/");
+        driver.findElement(By.id("email")).sendKeys("usmarcos@yahoo.com");
+        driver.findElement(By.id("senha")).sendKeys("776801");
+        driver.findElement(By.tagName("button")).click();
+        driver.findElement(By.linkText("reset")).click();
+        driver.quit();
+    }
 }
