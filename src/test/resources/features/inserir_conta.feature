@@ -16,22 +16,22 @@ Funcionalidade: Cadastro de contas
     E informo a conta "Conta de Teste"
     E seleciono Salvar
     Então a conta é inserida com sucesso
-  @ignore
+
   Cenário: Não deve inserir uma conta sem nome
     Dado que estou acessando a aplicação
-    Quando informo o usuário "a@a"
-    E a senha "a"
+    Quando informo o usuário "usmarcos@yahoo.com"
+    E a senha "776801"
     E seleciono entrar
     Então visualizo a página inicial
     Quando seleciono Contas
     E seleciono Adicionar
     E seleciono Salvar
-    Então sou notificar que o nome da conta é obrigatório
-  @ignore
+    Então sou notificado que o nome da conta é obrigatório
+
   Cenário: Não deve inserir uma conta com nome já existente
     Dado que estou acessando a aplicação
-    Quando informo o usuário "a@a"
-    E a senha "a"
+    Quando informo o usuário "usmarcos@yahoo.com"
+    E a senha "776801"
     E seleciono entrar
     Então visualizo a página inicial
     Quando seleciono Contas
