@@ -8,8 +8,8 @@ Funcionalidade: Cadastro de contas
 #  Contexto será aproveitado nos outros, então torna menos repetitivos
   Contexto:
     Dado que estou acessando a aplicação
-    Quando informo o usuário "usmarcos@yahoo.com"
-    E a senha "776801"
+    Quando informo o usuário "us@us.com"
+    E a senha "us"
     E seleciono entrar
     Então visualizo a página inicial
     Quando seleciono Contas

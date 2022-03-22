@@ -23,6 +23,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
         dryRun = false // True - ele apenas valida o mapeamento e não executa os testes
 )
 public class RunnerTest {
+    //reseta o BD antes de execuação a aplicação
     @BeforeClass
     public static void reset(){
         WebDriver driver =  new ChromeDriver();
