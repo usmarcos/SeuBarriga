@@ -1,11 +1,10 @@
 package br.com.barriga.steps;
 
-import cucumber.api.PendingException;
 import cucumber.api.Scenario;
-import cucumber.api.java.After;
-import cucumber.api.java.pt.Então;
-import cucumber.api.java.pt.Dado;
-import cucumber.api.java.pt.Quando;
+import io.cucumber.java.After;
+import io.cucumber.java.pt.Dado;
+import io.cucumber.java.pt.Quando;
+import io.cucumber.java.pt.Então;
 import org.apache.commons.io.FileUtils;
 import org.junit.Assert;
 import org.openqa.selenium.By;

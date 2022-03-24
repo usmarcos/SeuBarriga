@@ -1,8 +1,8 @@
 package br.com.barriga.runners;
 
-import cucumber.api.CucumberOptions;
-import cucumber.api.SnippetType;
-import cucumber.api.junit.Cucumber;
+
+import io.cucumber.junit.Cucumber;
+import io.cucumber.junit.CucumberOptions;
 import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
@@ -19,17 +19,17 @@ import org.openqa.selenium.chrome.ChromeDriver;
         //cria relatório em html no target
         plugin = {"pretty", "html:target/report.html", "json:target/report.json"},
         monochrome = false, //cor nas descrições
-        snippets = SnippetType.CAMELCASE,
-        dryRun = true // True - ele apenas valida o mapeamento e não executa os testes
+        snippets = CucumberOptions.SnippetType.CAMELCASE,
+        dryRun = false // True - ele apenas valida o mapeamento e não executa os testes
 )
 public class RunnerTest {
     //reseta o BD antes de execuação a aplicação
     @BeforeClass
-    public static void reset(){
-        WebDriver driver =  new ChromeDriver();
+    public static void reset() {
+        WebDriver driver = new ChromeDriver();
         driver.get("https://seubarriga.wcaquino.me/");
-        driver.findElement(By.id("email")).sendKeys("usmarcos@yahoo.com");
-        driver.findElement(By.id("senha")).sendKeys("776801");
+        driver.findElement(By.id("email")).sendKeys("us@us.com");
+        driver.findElement(By.id("senha")).sendKeys("us");
         driver.findElement(By.tagName("button")).click();
         driver.findElement(By.linkText("reset")).click();
         driver.quit();
