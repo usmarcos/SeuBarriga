@@ -7,17 +7,19 @@ Funcionalidade: Cadastro de contas
 
 #  Contexto será aproveitado nos outros, então torna menos repetitivos
   Contexto:
-    Dado que estou acessando a aplicação
-    Quando informo o usuário "us@us.com"
-    E a senha "us"
-    E seleciono entrar
-    Então visualizo a página inicial
-    Quando seleciono Contas
-    E seleciono Adicionar
+    Dado que desejo adicionar uma conta
+#    Dado que estou acessando a aplicação
+#    Quando informo o usuário "us@us.com"
+#    E a senha "us"
+#    E seleciono entrar
+#    Então visualizo a página inicial
+#    Quando seleciono Contas
+#    E seleciono Adicionar
 
   Esquema do Cenário: Deve validar regras cadastro contas
-    Quando informo a "<conta>"
-    E seleciono Salvar
+    Quando adiciono a "<conta>"
+#    Quando informo a "<conta>"
+#    E seleciono Salvar
     Então recebo a "<mensagem>"
 
     Exemplos:

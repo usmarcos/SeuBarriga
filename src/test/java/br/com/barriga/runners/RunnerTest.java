@@ -20,7 +20,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
         plugin = {"pretty", "html:target/report.html", "json:target/report.json"},
         monochrome = false, //cor nas descrições
         snippets = SnippetType.CAMELCASE,
-        dryRun = false // True - ele apenas valida o mapeamento e não executa os testes
+        dryRun = true // True - ele apenas valida o mapeamento e não executa os testes
 )
 public class RunnerTest {
     //reseta o BD antes de execuação a aplicação
