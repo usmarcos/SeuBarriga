@@ -1,8 +1,10 @@
 package br.com.barriga.runners;
 
 
+import io.cucumber.java.After;
 import io.cucumber.junit.Cucumber;
 import io.cucumber.junit.CucumberOptions;
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
@@ -11,7 +13,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-        features = "src/test/resources/features/", //mapeia as features
+        features = "src/test/resources/features/inserir_conta.feature", //mapeia as features
         glue = "br.com.barriga.steps", //mapeia as steps
         //entre chaves executa essa tag ou outra após a virgula
         tags = {"not @ignore"}, //se colocar apenas a tag só irá executar este e com o "not" ele ignora a tag
