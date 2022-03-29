@@ -6,7 +6,7 @@ Funcionalidade: Cadastro de contas
   Para que eu possa distribuir meu dinheiro de uma forma mais organizada
 
 #  Contexto será aproveitado nos outros, então torna menos repetitivos
-  Contexto:
+  Contexto: acessar a tela de inserir conta
     Dado que desejo adicionar uma conta
 
 
