@@ -1,5 +1,10 @@
 package br.com.barriga.steps;
 
+import br.com.barriga.core.BasePage;
+import br.com.barriga.page.ContasPage;
+import br.com.barriga.page.HomePage;
+import br.com.barriga.page.LoginPage;
+import br.com.barriga.page.MenuPage;
 import cucumber.api.Scenario;
 import io.cucumber.java.After;
 import io.cucumber.java.pt.Dado;
@@ -12,72 +17,75 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 
 import static br.com.barriga.core.DriverFactory.getDriver;
 import static br.com.barriga.core.DriverFactory.killDriver;
 
-public class AlterarContaSteps {
-    //incializando a variável
-    private WebDriver driver;
+public class AlterarContaSteps extends BasePage {
+
+    private LoginPage loginPage = new LoginPage();
+    private HomePage homePage = new HomePage();
+    private MenuPage menuPage = new MenuPage();
+    private ContasPage contasPage = new ContasPage();
 
     @Dado("que estou acessando a aplicação")
     public void queEstouAcessandoAAplicação() {
-        getDriver().get("https://seubarriga.wcaquino.me");
+        loginPage.acessaAplicacao();
     }
 
     @Quando("informo o usuário {string}")
     public void informoOUsuário(String string) {
-        getDriver().findElement(By.id("email")).sendKeys(string);
-
+        loginPage.setEmail(string);
     }
 
     @Quando("a senha {string}")
     public void aSenha(String string) {
-        getDriver().findElement(By.id("senha")).sendKeys(string);
+        loginPage.setSenha(string);
     }
 
     @Quando("seleciono entrar")
     public void selecionoEntrar() {
-        getDriver().findElement(By.tagName("button")).click();
+        loginPage.logar();
     }
 
     @Então("visualizo a página inicial")
     public void visualizoAPáginaInicial() {
-        String texto = getDriver().findElement(By.xpath("//body/footer[1]/span[1]")).getText();
+        String texto = homePage.validacaoLogin();
         Assert.assertEquals(texto, "Seu Barriga. Nunca mais esqueça de pagar o aluguel.reset");
     }
 
     @Quando("seleciono Contas")
     public void selecionoContas() {
-        getDriver().findElement(By.xpath("//a[normalize-space()='Contas']")).click();
+        menuPage.menuConta();
     }
 
     @Quando("seleciono Listar")
     public void selecionoListar() {
-        getDriver().findElement(By.xpath("//a[normalize-space()='Listar']")).click();
+        menuPage.subMenuListar();
     }
 
     @Quando("clico em alterar a {string}")
     public void clicoEmAlterarA(String string) {
-        getDriver().findElement(By.xpath("//tbody/tr[td//text()[contains(., '" + string + "')]]/td[2]/a[1]/span[1]")).click();
+        contasPage.clicarBotaoAlterar(string);
     }
 
     @Então("altero para {string}")
     public void alteroPara(String string) {
-        getDriver().findElement(By.id("nome")).sendKeys(string);
+        contasPage.alterarNome(string);
     }
 
     @Quando("seleciono Salvar")
     public void selecionoSalvar() {
-        getDriver().findElement(By.className("btn-group")).click();
+        contasPage.salvar();
     }
 
     @Então("recebo a {string} de alteração")
     public void receboADeAlteração(String string) {
         // pega o valor da div que comece com alerta alerta-
-        String texto = getDriver().findElement(By.xpath("//div[starts-with(@class,'alert alert-')]")).getText();
+        String texto = contasPage.obterMensagemSucesso();
         Assert.assertEquals(string, texto);
     }
 

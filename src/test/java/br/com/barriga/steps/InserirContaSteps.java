@@ -1,5 +1,9 @@
 package br.com.barriga.steps;
 
+import br.com.barriga.core.BasePage;
+import br.com.barriga.page.ContasPage;
+import br.com.barriga.page.LoginPage;
+import br.com.barriga.page.MenuPage;
 import cucumber.api.Scenario;
 import io.cucumber.java.After;
 import io.cucumber.java.pt.Dado;
@@ -17,29 +21,30 @@ import java.io.IOException;
 import static br.com.barriga.core.DriverFactory.getDriver;
 import static br.com.barriga.core.DriverFactory.killDriver;
 
-public class InserirContaSteps {
+public class InserirContaSteps extends BasePage {
+
+    private LoginPage loginPage = new LoginPage();
+    private MenuPage menuPage = new MenuPage();
+    private ContasPage contasPage = new ContasPage();
 
     @Dado("^que desejo adicionar uma conta$")
     public void queDesejoAdicionarUmaConta() {
-        getDriver().get("https://seubarriga.wcaquino.me");
-        getDriver().findElement(By.id("email")).sendKeys("us@us.com");
-        getDriver().findElement(By.id("senha")).sendKeys("us");
-        getDriver().findElement(By.tagName("button")).click();
-        getDriver().findElement(By.linkText("Contas")).click();
-        getDriver().findElement(By.linkText("Adicionar")).click();
+        loginPage.acessaAplicacao();
+        loginPage.setEmail("us@us.com");
+        loginPage.setSenha("us");
+        loginPage.logar();
+        menuPage.adicionarConta();
     }
 
     @Quando("^adiciono a \"([^\"]*)\"$")
     public void adicionoA(String arg1) {
-        getDriver().findElement(By.id("nome")).sendKeys(arg1);
-        getDriver().findElement(By.tagName("button")).click();
-
+        contasPage.setNome(arg1);
+        contasPage.salvar();
     }
 
     @Então("^recebo a \"([^\"]*)\"$")
     public void receboA(String arg1) {
-        // pega o valor da div que comece com alerta alerta-
-        String texto = getDriver().findElement(By.xpath("//div[starts-with(@class,'alert alert-')]")).getText();
+        String texto = contasPage.obterMensagemSucesso();
         Assert.assertEquals(arg1, texto);
     }
 
@@ -56,7 +61,7 @@ public class InserirContaSteps {
     }
 
     @After(order = 0)
-    public void fecharBrowser(){
+    public void fecharBrowser() {
         killDriver();
     }
 }

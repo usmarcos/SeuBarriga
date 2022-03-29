@@ -21,8 +21,9 @@ Funcionalidade: Cadastro de contas
     Então recebo a "<mensagem>" de alteração
 
     Exemplos:
-      | conta              | contaAlterada  | mensagem                    |
-      | Conta para alterar | Conta alterada | Conta alterada com sucesso! |
+      | conta                    | contaAlterada           | mensagem                    |
+      | Conta para alterar       | Conta alterada          | Conta alterada com sucesso! |
+      | Conta para movimentacoes | Conta para movimentação | Conta alterada com sucesso! |
 
 
 
