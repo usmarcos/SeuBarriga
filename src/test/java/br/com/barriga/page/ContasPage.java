@@ -16,8 +16,12 @@ public class ContasPage extends BasePage {
     public String obterMensagemSucesso(){
         return obterTexto(By.xpath("//div[starts-with(@class,'alert alert-')]"));
     }
-    public void clicarBotaoAlterar(String conta){
-        clicarBotao(By.xpath("//tbody/tr[td//text()[contains(., '"+conta+"')]]/td[2]/a[1]/span[1]"));
+    public void clicarBotaoAlterar(String nome){
+
+//        clicarBotao(By.xpath("//tbody/tr[td//text()[contains(., '"+nome+"')]]/td[2]/a[1]/span[1]"));
+//        clicarBotaoTabela("Conta", nome, "Ações", "tabelaContas"); para esse deve passar o local para clicar no método clicarBotaoTabela
+        obterCelula("Conta", nome, "Ações", "tabelaContas")
+                .findElement(By.xpath(".//span[@class='glyphicon glyphicon-edit']")).click();
     }
     public void alterarNome(String nome){
         escrever("nome", nome);

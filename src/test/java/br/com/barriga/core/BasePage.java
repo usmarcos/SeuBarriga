@@ -204,10 +204,10 @@ public class BasePage {
         return celula;
     }
 
+    //para isso deve passar o valor do xpath do botão que vai clicar, preferi usar direto pelo método acima
     public void clicarBotaoTabela(String colunaBusca, String valor, String colunaBotao, String idTabela){
         WebElement celula = obterCelula(colunaBusca, valor, colunaBotao, idTabela);
         celula.findElement(By.xpath(".//input")).click();
-
     }
 
     protected int obterIndiceLinha(String valor, WebElement tabela, int idColuna) {
